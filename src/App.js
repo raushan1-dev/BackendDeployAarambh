@@ -11,7 +11,7 @@ const connectDb=require("./config/database")
 const cors =require("cors")
 app.use(cookieparser())
 app.use(cors({
-  origin: config._config.BASE_URL,
+  origin: [config._config.BASE_URL,"https://deploy-demo-aarambh38-rdky.vercel.app"],
   credentials: true
 }));
 
