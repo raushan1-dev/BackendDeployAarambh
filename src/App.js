@@ -3,14 +3,15 @@ const cookieparser =require("cookie-parser")
 const app=express();
 const http=require("http")
 const IntializeSocket=require("./utils/IntializeSocket")
-const BASE_URL =require("./constants/ALLURL")
+const config = require("./config/config")
+
 
 
 const connectDb=require("./config/database")
 const cors =require("cors")
 app.use(cookieparser())
 app.use(cors({
-  origin: BASE_URL,
+  origin: config._config.BASE_URL,
   credentials: true
 }));
 
@@ -28,6 +29,7 @@ const AuthRouter =require("./routes/auth");
 const ProfileRouter = require("./routes/Profile");
 const UserRouter = require("./routes/UserWantConnection");
 const AlumniRouter=require("./routes/AlumniConnection");
+const { _config } = require("./config/config");
 // const BASE_URL = require("./constants/ALLURL");
 
 
@@ -42,9 +44,11 @@ app.use("/",AlumniRouter)
 const server=http.createServer(app);
 IntializeSocket(server);
 
+app.get("/",(req,res)=>{res.send("builded")})
+
 
 connectDb().then(()=>{server.listen(5000,()=>{
     console.log("Database connected successfully")
-    console.log("App is listening on 5000")
+    console.log(`App is listening on: ${config._config.BASE_URL}`)
 })})
 .catch(()=>{console.log("Error: Not available to connect to ur database")})

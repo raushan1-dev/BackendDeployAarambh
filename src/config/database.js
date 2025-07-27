@@ -1,7 +1,8 @@
 const mongoose=require("mongoose")
+const config= require("./config")
 
 const connectDb=async()=>{
-    await mongoose.connect("mongodb+srv://namasteyDev:5ODfPUF3kbZJQmGa@cluster0.jcj6rmy.mongodb.net/Aarambh38")
+    await mongoose.connect(config._config.MONGO_URI)
 }
 
 module.exports=connectDb
